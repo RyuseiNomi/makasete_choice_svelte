@@ -1,18 +1,33 @@
 <script lang="ts">
   import { onMount } from 'svelte';
   let members = [];
+  let groupNumber = 0;
   let maxGroupNumber = 0;
 
+  async function choice() {
+    const response = await fetch('/result', {
+      method: 'POST',
+      body: JSON.stringify({ members, groupNumber }),
+      headers: {
+        'Content-Type': 'application/json'
+      }
+    });
+  
+    const { choicedMembers, groupNumbers } = await response.json();
+    console.log(choicedMembers);
+    console.log(groupNumbers);
+  }
+
   onMount(async () => {
-    const button = document.querySelector("button");
+    const nameAddButton = document.querySelector(".top__name-add");
     const input = document.querySelector("input");
 
-    button.addEventListener("click", (event) => {
+    nameAddButton.addEventListener("click", (event) => {
       if ( input.value === '') { return; }
       members.push(input.value);
       maxGroupNumber = members.length;
       members = members;
-    })
+    });
   })
 </script>
 
@@ -27,13 +42,14 @@
   <button class="top__name-add">＋</button>
 </div>
 
-<select>
+<select bind:value={groupNumber}>
   <option value="">--組み分け数を選択--</option>
   {#each {length: maxGroupNumber} as _, i}
     <option value={i+1}>{i+1}</option>
   {/each}
 </select>
 
-<nav>
-  <a href="/result">チョイスする</a>
-</nav>
+<div class="top__submit-area" on:click={choice}>
+  <button>チョイスする</button>
+</div>
+
