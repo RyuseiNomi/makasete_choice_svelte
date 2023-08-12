@@ -5,6 +5,7 @@
   let groupNumber = 0;
   let maxGroupNumber = 0;
   let shuffledMembers = [];
+  let logo = '/logo.png';
 
   async function choice() {
     const response = await fetch('/result', {
@@ -28,6 +29,9 @@
 </script>
 
 <div class="top__body">
+  <div class="top__logo">
+    <img src={logo}>
+  </div>
   <div class="top__members">
     {#each members as member}
       <p>{member}</p>
@@ -123,6 +127,7 @@
         color: white;
         font-size: 30px;
         border-radius: 6px;
+        margin-bottom: 10px;
       }
   }
 
