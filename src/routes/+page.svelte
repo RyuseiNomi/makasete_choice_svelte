@@ -43,7 +43,7 @@
     <input
       placeholder="メンバー名を入力"
       bind:value={name}
-      on:keydown={async (e) => {
+      on:keypress={async (e) => {
         if ( e.key == 'Enter' ) {
           addMember(name);
           name = '';
