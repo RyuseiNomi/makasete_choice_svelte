@@ -13,9 +13,8 @@
       }
     });
   
-    const { choicedMembers, groupNumbers } = await response.json();
-    console.log(choicedMembers);
-    console.log(groupNumbers);
+    const { assignedMembers } = await response.json();
+    console.log(assignedMembers);
   }
 
   onMount(async () => {
