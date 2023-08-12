@@ -3,6 +3,7 @@
   let members = [];
   let groupNumber = 0;
   let maxGroupNumber = 0;
+  let shuffledMembers = [];
 
   async function choice() {
     const response = await fetch('/result', {
@@ -13,8 +14,8 @@
       }
     });
   
-    const { assignedMembers } = await response.json();
-    console.log(assignedMembers);
+    const responseJson = await response.json();
+    shuffledMembers = responseJson.assignedMembers;
   }
 
   onMount(async () => {
@@ -52,3 +53,11 @@
   <button>チョイスする</button>
 </div>
 
+<div class="top__result">
+  {#each shuffledMembers as group, i}
+    <p>Group {i+1}</p>
+    {#each group as _, i}
+      <p>{group[i]}</p>
+    {/each}
+  {/each}
+</div>
